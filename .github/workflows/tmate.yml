@@ -1,0 +1,26 @@
+name: 🚀 VPS Session
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  vps:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    - name: 🖥️ Setup VPS Session
+      uses: mxschmitt/action-tmate@v3
+      timeout-minutes: 30
+      with:
+        limit-access-to-actor: false
+        sudo: true
+    - name: 💻 System Info
+      run: |
+        echo "🔍 System Information:"
+        uname -a
+        df -h
+        free -h
+        nproc
